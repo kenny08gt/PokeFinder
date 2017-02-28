@@ -39,16 +39,57 @@
                                     </segue>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l2f-WN-J08">
+                                <rect key="frame" x="16" y="541" width="53" height="53"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="53" id="ccl-C4-e9b"/>
+                                    <constraint firstAttribute="width" constant="53" id="pLl-BN-X5P"/>
+                                </constraints>
+                                <state key="normal" image="ash"/>
+                                <connections>
+                                    <action selector="whereIAm:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Uew-Lq-IgW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ww-GK-bc8">
+                                <rect key="frame" x="332" y="630" width="27" height="27"/>
+                                <rect key="contentStretch" x="0.34999999999999998" y="0.14999999999999999" width="1" height="1"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="27" id="LEo-R3-xvS"/>
+                                    <constraint firstAttribute="height" constant="27" id="TwB-Vy-GzS"/>
+                                </constraints>
+                                <state key="normal" image="plus"/>
+                                <connections>
+                                    <action selector="zoomIn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pvN-B1-hEG"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QBZ-bM-0Ja">
+                                <rect key="frame" x="329" y="582" width="30" height="30"/>
+                                <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="LWY-aN-jiX"/>
+                                    <constraint firstAttribute="width" constant="30" id="QWv-cW-Gci"/>
+                                </constraints>
+                                <state key="normal" image="minus"/>
+                                <connections>
+                                    <action selector="zoomOut:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4oO-JL-J0r"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="QBZ-bM-0Ja" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="0EC-cZ-aU2"/>
                             <constraint firstItem="Fnx-Em-UWT" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="3fm-3R-8AD"/>
+                            <constraint firstItem="2ww-GK-bc8" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="5cx-pN-4T4"/>
+                            <constraint firstItem="2ww-GK-bc8" firstAttribute="top" secondItem="QBZ-bM-0Ja" secondAttribute="bottom" constant="18" id="AYB-UG-MuL"/>
                             <constraint firstItem="9bL-yL-bx5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="FKi-fe-aKN"/>
                             <constraint firstItem="Fnx-Em-UWT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="SdG-WT-AqO"/>
+                            <constraint firstItem="9bL-yL-bx5" firstAttribute="top" secondItem="l2f-WN-J08" secondAttribute="bottom" constant="10" id="Wxc-Gu-PHH"/>
                             <constraint firstItem="Fnx-Em-UWT" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="YPZ-3y-zve"/>
                             <constraint firstAttribute="trailing" secondItem="Fnx-Em-UWT" secondAttribute="trailing" id="l2N-tS-MB0"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Fnx-Em-UWT" secondAttribute="bottom" id="naZ-dc-BXU"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="9bL-yL-bx5" secondAttribute="bottom" constant="10" id="nx1-Wh-bLq"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="2ww-GK-bc8" secondAttribute="bottom" constant="10" id="w4F-14-i6A"/>
+                            <constraint firstItem="l2f-WN-J08" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="zbE-CB-qiE"/>
                         </constraints>
                     </view>
                     <connections>
@@ -149,6 +190,9 @@
     </scenes>
     <resources>
         <image name="10" width="120" height="120"/>
+        <image name="ash" width="56" height="56"/>
+        <image name="minus" width="128" height="128"/>
+        <image name="plus" width="512" height="512"/>
         <image name="pokeball" width="97" height="96"/>
     </resources>
 </document>

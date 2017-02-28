@@ -20,6 +20,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var mapHasCenterOnce = false
     var geoFire: GeoFire!
     var geoFireRef: FIRDatabaseReference!
+    var zoomLevel = 2000
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +29,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         geoFireRef = FIRDatabase.database().reference()
         geoFire = GeoFire(firebaseRef: geoFireRef)
-        
-        
         
     }
     
@@ -144,7 +143,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     @IBAction func spotRandomPokemon(_ sender: UIButton) {
-        print("You pick the ball :D")
+//        print("You pick the ball :D")
         
     }
     
@@ -162,6 +161,47 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 
     }
 
+    
+    @IBAction func whereIAm(_ sender: UIButton){
+        if let loc = mapView.userLocation.location{
+            
+            centerMapOnLocation(location: loc)
+            
+        }
+    }
+    
+    @IBAction func zoomIn(_ sender: UIButton){
+        let loc = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
+        
+        if zoomLevel - 500 > 0{
+            zoomLevel -= 500
+        }else{
+            zoomLevel = 0
+        }
+        
+        print("zoom in \(zoomLevel)")
+        
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(loc.coordinate,CLLocationDistance(zoomLevel) , CLLocationDistance(zoomLevel))
+        mapView.setRegion(coordinateRegion, animated: true)
+
+    }
+    
+    
+    @IBAction func zoomOut(_ sender: UIButton){
+        let loc = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
+        
+        //if zoomLevel + 500 < 5000{
+            zoomLevel += 500
+        //}else{
+          //  zoomLevel = 5000
+        //}
+        
+        print("zoom out \(zoomLevel)")
+        
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(loc.coordinate,CLLocationDistance(zoomLevel) , CLLocationDistance(zoomLevel))
+        mapView.setRegion(coordinateRegion, animated: true)
+        
+    }
 }
 
 
