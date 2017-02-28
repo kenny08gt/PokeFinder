@@ -29,6 +29,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         geoFireRef = FIRDatabase.database().reference()
         geoFire = GeoFire(firebaseRef: geoFireRef)
         
+        
+        
+    }
+    
+    func initGeoFire(){
+        geoFireRef = FIRDatabase.database().reference()
+        geoFire = GeoFire(firebaseRef: geoFireRef)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -100,6 +107,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     func createSighting(forLocation location: CLLocation, withPokemon pokeId: Int){
+        print("create Sighting \(pokeId)")
         geoFire.setLocation(location, forKey: "\(pokeId)")
     }
     
@@ -136,13 +144,24 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     @IBAction func spotRandomPokemon(_ sender: UIButton) {
-        
-        let loc = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
-        
-        let rand = arc4random_uniform(151) + 1
-        
-        createSighting(forLocation: loc, withPokemon: Int(rand))
+        print("You pick the ball :D")
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let loc = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
+        
+        
+        if segue.identifier == "pickPokemon"{
+            if let destination = segue.destination as? PokemonPickVC{
+                destination.loc = loc
+            }
+        }
+        
+
+
+    }
+
 }
+
 

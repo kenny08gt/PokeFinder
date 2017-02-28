@@ -8,7 +8,8 @@
 
 import Foundation
 import MapKit
-let pokemon = [
+class PokeAnnotation: NSObject, MKAnnotation {
+static let pokemons = [
     "bulbasaur",
     "ivysaur",
     "venusaur",
@@ -161,7 +162,7 @@ let pokemon = [
     "mewtwo",
     "mew"]
 
-class PokeAnnotation: NSObject, MKAnnotation {
+
     var coordinate = CLLocationCoordinate2D()
     var pokemonNumber: Int
     var pokemonName: String
@@ -170,7 +171,7 @@ class PokeAnnotation: NSObject, MKAnnotation {
     init(coordinate: CLLocationCoordinate2D, pokemonNumber: Int) {
         self.coordinate = coordinate
         self.pokemonNumber = pokemonNumber
-        self.pokemonName = pokemon[pokemonNumber - 1].capitalized
+        self.pokemonName = PokeAnnotation.pokemons[pokemonNumber - 1].capitalized
         self.title = self.pokemonName
     }
 }
