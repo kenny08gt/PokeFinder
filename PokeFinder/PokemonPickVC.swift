@@ -9,14 +9,21 @@
 import UIKit
 import MapKit
 
-class PokemonPickVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
+class PokemonPickVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate  {
     @IBOutlet weak var collection: UICollectionView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     var loc: CLLocation?
+    var filterPokemon = [String]()
+    var inSearchMode = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         collection.delegate = self
         collection.dataSource = self
+        
+        searchBar.delegate = self
+        searchBar.returnKeyType = UIReturnKeyType.done
         // Do any additional setup after loading the view.
     }
 
@@ -25,7 +32,15 @@ class PokemonPickVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PokeCell", for: indexPath) as? PokeCell{
             
-            cell.configureCell(pokeIndex: indexPath.row)
+            if inSearchMode{
+                let pokemon = filterPokemon[indexPath.row]
+                let index = PokeAnnotation.pokemons.index(of: pokemon)
+
+                cell.configureCell(pokemon: pokemon, pokeIndex: index!)
+            }else{
+                let pokemon = PokeAnnotation.pokemons[indexPath.row]
+                cell.configureCell(pokemon: pokemon, pokeIndex: indexPath.row)
+            }
             
             return cell
         }else{
@@ -38,12 +53,28 @@ class PokemonPickVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         
         let vc = ViewController()
         vc.initGeoFire()
-        vc.createSighting(forLocation: loc!, withPokemon: Int(indexPath.row + 1))
+        if inSearchMode{
+            let pokemon = filterPokemon[indexPath.row]
+            let index = PokeAnnotation.pokemons.index(of: pokemon)
+            vc.createSighting(forLocation: loc!, withPokemon: Int(index!) + 1)
+        }else{
+            vc.createSighting(forLocation: loc!, withPokemon: Int(indexPath.row + 1))
+        }
+        
         dismiss(animated: true, completion: nil)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-       return PokeAnnotation.pokemons.count
+        
+        if inSearchMode{
+            return filterPokemon.count
+
+        }else{
+            return PokeAnnotation.pokemons.count
+
+        }
+        
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -55,7 +86,26 @@ class PokemonPickVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         return CGSize(width: 105, height: 105)
         
     }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        if searchBar.text == nil || searchBar.text == ""{
+            inSearchMode = false
+            collection.reloadData()
+            view.endEditing(true)
+        }else{
+            inSearchMode = true
+            
+            let lower = searchBar.text!.lowercased()
+            
+            filterPokemon = PokeAnnotation.pokemons.filter({$0.range(of: lower) != nil})
+            
+            collection.reloadData()
+            
+        }
+    }
 
-
-
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        view.endEditing(true)
+    }
 }

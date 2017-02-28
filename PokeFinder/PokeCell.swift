@@ -19,9 +19,9 @@ class PokeCell: UICollectionViewCell {
         layer.cornerRadius = 5.0
     }
     
-    func configureCell(pokeIndex: Int){
+    func configureCell(pokemon: String, pokeIndex: Int){
         
-        nameLbl.text = PokeAnnotation.pokemons[pokeIndex].capitalized
+        nameLbl.text = pokemon.capitalized
         thumbImg.image = UIImage(named: "\(pokeIndex+1)")
         
     }
